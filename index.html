@@ -1,5 +1,10 @@
 <!doctype html>
-<html lang="id"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#e8f7ff"><title>Aku Kenal Rasa! — Ruang Digital Umaira</title>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#e8f7ff">
+<title>Aku Kenal Rasa! — Ruang Digital Umaira</title>
 <style>
 :root{--ink:#34506b;--blue:#4b9dcc;--sky:#e7f6ff;--pink:#ffe6ef;--mint:#e7fbf2;--gold:#ffe8a8;--purple:#eee8ff;--line:#d6eaf5;--shadow:0 18px 44px rgba(74,123,151,.16)}
 *{box-sizing:border-box}
@@ -20,24 +25,32 @@ h1{text-align:center;color:#398bb7;font-size:clamp(2rem,7vw,3.2rem);line-height:
 .row{display:flex;justify-content:space-between;gap:10px;font-weight:900;font-size:.9rem;margin-bottom:10px;color:#57748a}
 .track{height:12px;background:#edf3f6;border-radius:99px;overflow:hidden;margin-bottom:22px;border:1px solid #e1edf2}
 .fill{height:100%;background:linear-gradient(90deg,#72c9e6,#f4a8c4,#f6d274);width:0;border-radius:99px;transition:width .3s}
-.panel{background:linear-gradient(145deg,#eaf8ff,#f3f0ff 70%,#fff0f5);border:2px solid white;border-radius:26px;padding:clamp(16px,4vw,28px);text-align:center;box-shadow:inset 0 0 0 1px #dcecf5}
-.prompt{font-size:clamp(1.25rem,4.5vw,1.7rem);font-weight:900;line-height:1.35;color:#345b78}
-.panel p{color:#60798c;line-height:1.5}
+.panel{background:linear-gradient(rgba(255,255,255,.20),rgba(255,255,255,.20)),url("assets/background-soal.png") center center/100% 100% no-repeat;border:2px solid white;border-radius:26px;padding:clamp(30px,8vw,58px) clamp(16px,4vw,28px) clamp(22px,5vw,34px);text-align:center;box-shadow:inset 0 0 0 1px #dcecf5;min-height:450px}
+.prompt{font-size:clamp(1.25rem,4.5vw,1.7rem);font-weight:900;line-height:1.35;color:#34506b;text-shadow:0 1px 0 rgba(255,255,255,.85)}
+.panel p{color:#4c6579;line-height:1.5;font-weight:700}
 .answers{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:11px;margin-top:18px}
-.answer{border:2px solid #d2e8f3;background:#fff;color:#345b78;padding:15px 8px;border-radius:18px;font-size:1rem;font-weight:900;cursor:pointer;min-height:64px;box-shadow:0 4px 0 #dcecf4;transition:transform .15s,box-shadow .15s,border-color .15s;overflow-wrap:anywhere}
-.answer:nth-child(2){background:#fff9fc;border-color:#f5d6e3;box-shadow:0 4px 0 #f7e6ed}.answer:nth-child(3){background:#f5fff9;border-color:#d5eee1;box-shadow:0 4px 0 #e0f2e8}
+.answer{border:2px solid #d2e8f3;background:rgba(255,255,255,.95);color:#345b78;padding:15px 8px;border-radius:18px;font-size:1rem;font-weight:900;cursor:pointer;min-height:64px;box-shadow:0 4px 0 #dcecf4;transition:transform .15s,box-shadow .15s,border-color .15s;overflow-wrap:anywhere}
+.answer:nth-child(2){background:rgba(255,249,252,.96);border-color:#f5d6e3;box-shadow:0 4px 0 #f7e6ed}.answer:nth-child(3){background:rgba(245,255,249,.96);border-color:#d5eee1;box-shadow:0 4px 0 #e0f2e8}
 .answer:disabled{opacity:1;cursor:default}.answer:disabled:hover{transform:none}
-.feedback{font-weight:900;line-height:1.5;min-height:34px;margin:17px 0 5px}.good{color:#218454}.try{color:#a65a2c}
+.feedback{font-weight:900;line-height:1.5;min-height:34px;margin:17px 0 5px;padding:5px;border-radius:12px;background:rgba(255,255,255,.82)}.good{color:#218454}.try{color:#a65a2c}
 .footer{text-align:center;font-size:.82rem;line-height:1.7;color:#7893a1;margin-top:22px;padding-top:16px;border-top:1px dashed #dceaf0}
 [hidden]{display:none!important}
-@media(max-width:520px){body{padding:10px}.app{border-radius:25px;padding:20px 15px}.app:before{top:10px;left:12px;font-size:22px}.app:after{top:30px;right:12px;font-size:18px}.brand{font-size:.7rem;letter-spacing:.08em}.toolbar{gap:7px;margin:17px 0 20px}.small{font-size:.82rem;padding:9px 11px}.answers{grid-template-columns:1fr;gap:10px}.answer{min-height:54px;padding:12px}.panel{border-radius:22px}.row{font-size:.82rem}}
+@media(max-width:520px){body{padding:10px}.app{border-radius:25px;padding:20px 15px}.app:before{top:10px;left:12px;font-size:22px}.app:after{top:30px;right:12px;font-size:18px}.brand{font-size:.7rem;letter-spacing:.08em}.toolbar{gap:7px;margin:17px 0 20px}.small{font-size:.82rem;padding:9px 11px}.answers{grid-template-columns:1fr;gap:10px}.answer{min-height:54px;padding:12px}.panel{border-radius:22px;min-height:570px;padding:46px 16px 28px}.row{font-size:.82rem}}
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{transition:none!important}}
-</style></head><body><main class="app"><div class="brand"><img src="assets/logo-ruang-digital-umaira.png" alt="Ruang Digital Umaira"><span>GAME EDUKASI ANAK</span></div><h1>🍋 Aku Kenal Rasa!</h1><p class="sub">Game kecil untuk mengenal rasa dan benda di sekitar kita. Dengarkan, pikirkan, lalu pilih jawaban.</p>
-<div class="toolbar"><button class="small" id="voice">🔊 Suara: aktif</button><button class="small" id="music">🎵 Musik: belum tersedia</button><button class="small" id="repeat">🔁 Ulangi suara</button></div>
+</style>
+</head>
+<body>
+<main class="app">
+<div class="brand"><img src="assets/logo-ruang-digital-umaira.png" alt="Ruang Digital Umaira"><span>GAME EDUKASI ANAK</span></div>
+<h1>🍋 Aku Kenal Rasa!</h1>
+<p class="sub">Game kecil untuk mengenal rasa dan benda di sekitar kita. Dengarkan, pikirkan, lalu pilih jawaban.</p>
+<div class="toolbar"><button class="small" id="voice">🔊 Suara: aktif</button><button class="small" id="music" aria-pressed="false">🎵 Musik: mati</button><button class="small" id="repeat">🔁 Ulangi suara</button></div>
+<audio id="bgMusic" src="assets/aku-kenal-rasa-musik-original.wav" loop preload="none"></audio>
 <section id="start" class="start"><div class="emoji">🧒🏻 🥛 🍯</div><div class="bubble">Siap bermain sambil belajar?</div><p>Untuk anak prasekolah. Anak boleh menjawab sendiri atau didampingi orang tua.</p><button class="main" id="begin">Mulai Bermain ✨</button></section>
 <section id="game" hidden><div class="row"><span id="count"></span><span id="score"></span></div><div class="track"><div class="fill" id="fill"></div></div><div class="panel"><div class="emoji" id="emoji"></div><div class="prompt" id="prompt"></div><p>Pilih jawaban yang menurutmu benar, ya!</p><div class="answers" id="answers"></div><div class="feedback" id="feedback" aria-live="polite"></div><button class="main" id="next" disabled>Berikutnya ➜</button></div></section>
 <section id="end" class="end" hidden><div class="emoji">🌟🎉🌈</div><h2>Hebat! Kamu sudah selesai bermain!</h2><p id="final"></p><div class="bubble" id="encourage">Terus belajar dengan gembira!</div><br><button class="main" id="again">Main Lagi 🔄</button></section>
-<div class="footer">Belajar sedikit demi sedikit, tumbuh bersama. 💗</div></main>
+<div class="footer">Belajar sedikit demi sedikit, tumbuh bersama. 💗</div>
+</main>
 <script>
 const qs=[
 ["🧂","Apa rasa garam?",["Manis","Asin","Asam"],1,"Garam rasanya asin."],
@@ -63,5 +76,12 @@ function render(){done=false;let q=qs[i];el("count").textContent=`Pertanyaan ${i
 function choose(n){if(done)return;done=true;let q=qs[i],bs=[...el("answers").querySelectorAll("button")],ok=n===q[3];bs.forEach(b=>b.disabled=true);if(ok){pts++;el("feedback").textContent="🎉 Betul! "+q[4];el("feedback").className="feedback good";say("Hebat! Betul. "+q[4])}else{el("feedback").textContent="😊 Belum tepat. "+q[4];el("feedback").className="feedback try";say("Tidak apa-apa, kita belajar bersama. "+q[4]);bs[q[3]].style.borderColor="#57b98a";bs[q[3]].style.background="#e5faee"}el("score").textContent="Skor: "+pts;el("fill").style.width=((i+1)/qs.length*100)+"%";el("next").disabled=false}
 function start(){i=0;pts=0;el("start").hidden=true;el("end").hidden=true;el("game").hidden=false;render()}
 el("begin").onclick=start;el("again").onclick=start;el("next").onclick=()=>{if(!done)return;if(i<qs.length-1){i++;render()}else{el("game").hidden=true;el("end").hidden=false;el("final").textContent=`Kamu mendapat ${pts} dari ${qs.length} jawaban benar.`;el("encourage").textContent=pts===qs.length?"Luar biasa! Semua jawaban benar!":"Bagus sekali sudah mencoba. Kita bisa bermain lagi untuk belajar lebih banyak.";say("Permainan selesai. Kamu mendapat "+pts+" dari "+qs.length+". "+el("encourage").textContent)}};
-el("voice").onclick=()=>{voiceOn=!voiceOn;el("voice").textContent=voiceOn?"🔊 Suara: aktif":"🔇 Suara: mati";if(!voiceOn&&window.speechSynthesis)speechSynthesis.cancel();else say(last||"Halo, ayo bermain!")};el("repeat").onclick=()=>say(last||"Tekan Mulai Bermain untuk memulai.");el("music").onclick=()=>alert("Musik latar belum disertakan. Tambahkan audio yang lisensinya mengizinkan penggunaan dan distribusi.");if(!("speechSynthesis"in window)){el("voice").textContent="🔈 Suara tidak didukung";el("voice").disabled=true;el("repeat").disabled=true}
-</script></body></html>
+el("voice").onclick=()=>{voiceOn=!voiceOn;el("voice").textContent=voiceOn?"🔊 Suara: aktif":"🔇 Suara: mati";if(!voiceOn&&window.speechSynthesis)speechSynthesis.cancel();else say(last||"Halo, ayo bermain!")};
+el("repeat").onclick=()=>say(last||"Tekan Mulai Bermain untuk memulai.");
+const music=el("bgMusic");
+music.volume=0.22;
+el("music").onclick=async()=>{if(music.paused){try{await music.play();el("music").textContent="🎵 Musik: aktif";el("music").setAttribute("aria-pressed","true")}catch(e){el("music").textContent="🎵 Coba putar lagi";alert("Musik belum bisa diputar. Pastikan file musik ada di folder assets dan namanya sama persis.")}}else{music.pause();el("music").textContent="🎵 Musik: mati";el("music").setAttribute("aria-pressed","false")}};
+if(!("speechSynthesis"in window)){el("voice").textContent="🔈 Suara tidak didukung";el("voice").disabled=true;el("repeat").disabled=true}
+</script>
+</body>
+</html>
