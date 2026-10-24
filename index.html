@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="id"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#e8f7ff"><title>Aku Kenal Rasa! — Ruang Digital Umaira</title>
+<style>
+:root{--ink:#34506b;--blue:#4b9dcc;--sky:#e7f6ff;--pink:#ffe6ef;--mint:#e7fbf2;--gold:#ffe8a8;--purple:#eee8ff;--line:#d6eaf5;--shadow:0 18px 44px rgba(74,123,151,.16)}
+*{box-sizing:border-box}
+body{margin:0;min-height:100vh;background:linear-gradient(rgba(232,248,255,.42),rgba(255,246,250,.48)),url("assets/background-rasa.png") center center/cover fixed no-repeat;font-family:ui-rounded,system-ui,-apple-system,sans-serif;color:var(--ink);display:flex;align-items:center;justify-content:center;padding:18px;overflow-x:hidden}
+.app{position:relative;width:min(760px,100%);background:rgba(255,255,255,.91);backdrop-filter:blur(2px);border:3px solid white;border-radius:32px;padding:clamp(18px,4.5vw,36px);box-shadow:var(--shadow);outline:1px solid #dcecf4}
+.app:before,.app:after{content:"✦";position:absolute;font-size:28px;color:#f3c85d;opacity:.8;pointer-events:none}.app:before{top:15px;left:18px}.app:after{right:20px;top:42px;color:#f5a9c4;font-size:23px}
+.brand{text-align:center;color:#287f9b;font-weight:900;letter-spacing:.06em;font-size:.78rem;margin:0 auto 8px}.brand img{display:block;width:min(230px,68%);max-height:112px;object-fit:contain;margin:0 auto 4px}
+h1{text-align:center;color:#398bb7;font-size:clamp(2rem,7vw,3.2rem);line-height:1.08;margin:8px 0 12px;text-shadow:0 3px 0 #e6f5ff}
+.sub{text-align:center;line-height:1.65;max-width:540px;margin:0 auto;color:#5b7184}
+.toolbar{display:flex;gap:9px;justify-content:center;flex-wrap:wrap;margin:20px 0 24px}
+.small{border:1.5px solid #d8eaf4;background:#f5fbff;color:#345f79;border-radius:999px;padding:10px 14px;font-weight:800;cursor:pointer;box-shadow:0 3px 0 #e3eef5;transition:transform .15s,box-shadow .15s}
+.small:hover,.answer:hover{transform:translateY(-2px);box-shadow:0 5px 0 #e3eef5}
+.start,.end{text-align:center;padding:clamp(12px,3vw,24px) 8px}
+.emoji{font-size:clamp(3.4rem,14vw,6rem);line-height:1.25;margin:12px 0 16px;filter:drop-shadow(0 4px 0 rgba(70,120,150,.07))}
+.bubble{display:inline-block;background:linear-gradient(135deg,#ffe8f0,#fff0d3);border:1px solid #ffdfeb;border-radius:20px;padding:13px 18px;font-weight:900;margin:8px auto;color:#77556a}
+.main{background:linear-gradient(135deg,#4b9dcc,#6bb8d8);color:white;border:0;border-radius:999px;padding:14px 24px;font-weight:900;font-size:1rem;cursor:pointer;margin:14px 0 6px;box-shadow:0 5px 0 #347fa5,0 10px 20px #4b9dcc25;transition:transform .15s,box-shadow .15s}
+.main:hover{transform:translateY(-2px);box-shadow:0 7px 0 #347fa5,0 12px 22px #4b9dcc2b}.main:active{transform:translateY(2px);box-shadow:0 2px 0 #347fa5}.main:disabled{opacity:.45;cursor:not-allowed;transform:none;box-shadow:none}
+.row{display:flex;justify-content:space-between;gap:10px;font-weight:900;font-size:.9rem;margin-bottom:10px;color:#57748a}
+.track{height:12px;background:#edf3f6;border-radius:99px;overflow:hidden;margin-bottom:22px;border:1px solid #e1edf2}
+.fill{height:100%;background:linear-gradient(90deg,#72c9e6,#f4a8c4,#f6d274);width:0;border-radius:99px;transition:width .3s}
+.panel{background:linear-gradient(145deg,#eaf8ff,#f3f0ff 70%,#fff0f5);border:2px solid white;border-radius:26px;padding:clamp(16px,4vw,28px);text-align:center;box-shadow:inset 0 0 0 1px #dcecf5}
+.prompt{font-size:clamp(1.25rem,4.5vw,1.7rem);font-weight:900;line-height:1.35;color:#345b78}
+.panel p{color:#60798c;line-height:1.5}
+.answers{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:11px;margin-top:18px}
+.answer{border:2px solid #d2e8f3;background:#fff;color:#345b78;padding:15px 8px;border-radius:18px;font-size:1rem;font-weight:900;cursor:pointer;min-height:64px;box-shadow:0 4px 0 #dcecf4;transition:transform .15s,box-shadow .15s,border-color .15s;overflow-wrap:anywhere}
+.answer:nth-child(2){background:#fff9fc;border-color:#f5d6e3;box-shadow:0 4px 0 #f7e6ed}.answer:nth-child(3){background:#f5fff9;border-color:#d5eee1;box-shadow:0 4px 0 #e0f2e8}
+.answer:disabled{opacity:1;cursor:default}.answer:disabled:hover{transform:none}
+.feedback{font-weight:900;line-height:1.5;min-height:34px;margin:17px 0 5px}.good{color:#218454}.try{color:#a65a2c}
+.footer{text-align:center;font-size:.82rem;line-height:1.7;color:#7893a1;margin-top:22px;padding-top:16px;border-top:1px dashed #dceaf0}
+[hidden]{display:none!important}
+@media(max-width:520px){body{padding:10px}.app{border-radius:25px;padding:20px 15px}.app:before{top:10px;left:12px;font-size:22px}.app:after{top:30px;right:12px;font-size:18px}.brand{font-size:.7rem;letter-spacing:.08em}.toolbar{gap:7px;margin:17px 0 20px}.small{font-size:.82rem;padding:9px 11px}.answers{grid-template-columns:1fr;gap:10px}.answer{min-height:54px;padding:12px}.panel{border-radius:22px}.row{font-size:.82rem}}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{transition:none!important}}
+</style></head><body><main class="app"><div class="brand"><img src="assets/logo-ruang-digital-umaira.png" alt="Ruang Digital Umaira"><span>GAME EDUKASI ANAK</span></div><h1>🍋 Aku Kenal Rasa!</h1><p class="sub">Game kecil untuk mengenal rasa dan benda di sekitar kita. Dengarkan, pikirkan, lalu pilih jawaban.</p>
+<div class="toolbar"><button class="small" id="voice">🔊 Suara: aktif</button><button class="small" id="music">🎵 Musik: belum tersedia</button><button class="small" id="repeat">🔁 Ulangi suara</button></div>
+<section id="start" class="start"><div class="emoji">🧒🏻 🥛 🍯</div><div class="bubble">Siap bermain sambil belajar?</div><p>Untuk anak prasekolah. Anak boleh menjawab sendiri atau didampingi orang tua.</p><button class="main" id="begin">Mulai Bermain ✨</button></section>
+<section id="game" hidden><div class="row"><span id="count"></span><span id="score"></span></div><div class="track"><div class="fill" id="fill"></div></div><div class="panel"><div class="emoji" id="emoji"></div><div class="prompt" id="prompt"></div><p>Pilih jawaban yang menurutmu benar, ya!</p><div class="answers" id="answers"></div><div class="feedback" id="feedback" aria-live="polite"></div><button class="main" id="next" disabled>Berikutnya ➜</button></div></section>
+<section id="end" class="end" hidden><div class="emoji">🌟🎉🌈</div><h2>Hebat! Kamu sudah selesai bermain!</h2><p id="final"></p><div class="bubble" id="encourage">Terus belajar dengan gembira!</div><br><button class="main" id="again">Main Lagi 🔄</button></section>
+<div class="footer">Belajar sedikit demi sedikit, tumbuh bersama. 💗</div></main>
+<script>
+const qs=[
+["🧂","Apa rasa garam?",["Manis","Asin","Asam"],1,"Garam rasanya asin."],
+["🍯","Apa rasa madu?",["Manis","Pahit","Asin"],0,"Madu biasanya terasa manis."],
+["🍋","Apa rasa lemon?",["Asin","Asam","Manis"],1,"Lemon biasanya terasa asam."],
+["🍫","Cokelat susu biasanya terasa…",["Manis","Pedas","Asin sekali"],0,"Cokelat susu biasanya terasa manis."],
+["🌶️","Cabai bisa terasa…",["Dingin","Pedas","Manis"],1,"Cabai dapat terasa pedas. Tidak perlu mencobanya."],
+["🥒","Acar yang memakai cuka sering terasa…",["Asam","Pahit","Manis sekali"],0,"Cuka memiliki rasa asam."],
+["🍲","Sup yang diberi garam bisa terasa…",["Asin","Manis seperti permen","Pahit seperti kopi"],0,"Garam membuat sup terasa lebih asin."],
+["☕","Kopi hitam tanpa gula biasanya terasa…",["Manis","Pahit","Asam seperti lemon"],1,"Kopi hitam biasanya terasa pahit."],
+["🥛","Susu tawar biasanya rasanya…",["Sangat pedas","Tawar atau sedikit gurih","Asin sekali"],1,"Susu tawar biasanya tidak semanis susu berperisa."],
+["🥭","Mangga matang biasanya terasa…",["Manis","Pahit","Pedas"],0,"Mangga matang biasanya terasa manis."],
+["🍬","Permen biasanya terasa…",["Manis","Asin","Pedas"],0,"Permen biasanya terasa manis."],
+["🥔","Keripik kentang yang diberi garam terasa…",["Asin","Manis seperti madu","Pahit seperti kopi"],0,"Garam membuat keripik terasa asin."],
+["🍦","Es krim vanila biasanya terasa…",["Pedas","Manis","Asin sekali"],1,"Es krim vanila biasanya terasa manis."],
+["🥣","Yoghurt tawar bisa terasa sedikit…",["Asam","Pedas","Asin sekali"],0,"Yoghurt tawar sering terasa sedikit asam."],
+["💧","Air putih bersih biasanya terasa…",["Manis sekali","Asin","Tawar"],2,"Air putih biasanya terasa tawar."]
+];
+let i=0,pts=0,done=false,voiceOn=true,last="";
+const el=id=>document.getElementById(id);
+function say(t){last=t;if(!voiceOn||!window.speechSynthesis)return;window.speechSynthesis.cancel();let u=new SpeechSynthesisUtterance(t);u.lang="id-ID";u.rate=.88;u.pitch=1.08;let v=speechSynthesis.getVoices().find(x=>x.lang&&x.lang.toLowerCase().startsWith("id"));if(v)u.voice=v;speechSynthesis.speak(u)}
+function render(){done=false;let q=qs[i];el("count").textContent=`Pertanyaan ${i+1} dari ${qs.length}`;el("score").textContent=`Skor: ${pts}`;el("fill").style.width=(i/qs.length*100)+"%";el("emoji").textContent=q[0];el("prompt").textContent=q[1];el("feedback").textContent="";el("feedback").className="feedback";el("next").disabled=true;el("next").textContent=i===qs.length-1?"Lihat Hasil 🌟":"Berikutnya ➜";el("answers").innerHTML="";q[2].forEach((a,n)=>{let b=document.createElement("button");b.className="answer";b.textContent=a;b.onclick=()=>choose(n);el("answers").appendChild(b)});say(q[1])}
+function choose(n){if(done)return;done=true;let q=qs[i],bs=[...el("answers").querySelectorAll("button")],ok=n===q[3];bs.forEach(b=>b.disabled=true);if(ok){pts++;el("feedback").textContent="🎉 Betul! "+q[4];el("feedback").className="feedback good";say("Hebat! Betul. "+q[4])}else{el("feedback").textContent="😊 Belum tepat. "+q[4];el("feedback").className="feedback try";say("Tidak apa-apa, kita belajar bersama. "+q[4]);bs[q[3]].style.borderColor="#57b98a";bs[q[3]].style.background="#e5faee"}el("score").textContent="Skor: "+pts;el("fill").style.width=((i+1)/qs.length*100)+"%";el("next").disabled=false}
+function start(){i=0;pts=0;el("start").hidden=true;el("end").hidden=true;el("game").hidden=false;render()}
+el("begin").onclick=start;el("again").onclick=start;el("next").onclick=()=>{if(!done)return;if(i<qs.length-1){i++;render()}else{el("game").hidden=true;el("end").hidden=false;el("final").textContent=`Kamu mendapat ${pts} dari ${qs.length} jawaban benar.`;el("encourage").textContent=pts===qs.length?"Luar biasa! Semua jawaban benar!":"Bagus sekali sudah mencoba. Kita bisa bermain lagi untuk belajar lebih banyak.";say("Permainan selesai. Kamu mendapat "+pts+" dari "+qs.length+". "+el("encourage").textContent)}};
+el("voice").onclick=()=>{voiceOn=!voiceOn;el("voice").textContent=voiceOn?"🔊 Suara: aktif":"🔇 Suara: mati";if(!voiceOn&&window.speechSynthesis)speechSynthesis.cancel();else say(last||"Halo, ayo bermain!")};el("repeat").onclick=()=>say(last||"Tekan Mulai Bermain untuk memulai.");el("music").onclick=()=>alert("Musik latar belum disertakan. Tambahkan audio yang lisensinya mengizinkan penggunaan dan distribusi.");if(!("speechSynthesis"in window)){el("voice").textContent="🔈 Suara tidak didukung";el("voice").disabled=true;el("repeat").disabled=true}
+</script></body></html>
