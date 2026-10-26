@@ -91,6 +91,47 @@ body.playing .intro-screen{display:none}
   body.playing .answer { font-size:.7rem; }
 }
 
+
+/* Status visual: ikon diberi garis merah saat suara atau musik mati */
+.hotspot.voice-hotspot::after,
+.hotspot.music-hotspot::after {
+  content: "";
+  position: absolute;
+  left: 48%;
+  top: 13%;
+  height: 74%;
+  width: 5px;
+  border-radius: 99px;
+  background: #e53935;
+  border: 1px solid #fff;
+  box-shadow: 0 1px 3px rgba(0,0,0,.35);
+  transform: rotate(-42deg);
+  opacity: 0;
+  pointer-events: none;
+}
+.hotspot.voice-hotspot.is-off::after,
+.hotspot.music-hotspot.is-off::after { opacity: 1; }
+
+#voiceLabel.is-off::after,
+#musicLabel.is-off::after {
+  content: "";
+  position: absolute;
+  width: 4px;
+  height: 25px;
+  border-radius: 99px;
+  background: #e53935;
+  border: 1px solid #fff;
+  box-shadow: 0 1px 3px rgba(0,0,0,.25);
+  transform: rotate(-42deg);
+  pointer-events: none;
+}
+#voiceLabel, #musicLabel { position: relative; }
+body.playing #voiceLabel.is-off::after,
+body.playing #musicLabel.is-off::after {
+  width: 4px;
+  height: 25px;
+}
+
 </style>
 </head>
 <body>
@@ -98,7 +139,7 @@ body.playing .intro-screen{display:none}
 <section id="start" class="start intro-screen" aria-label="Halaman pembuka Aku Kenal Rasa">
   <img class="intro-background" src="assets/background-rasa.png" alt="Ilustrasi halaman pembuka Aku Kenal Rasa">
   <button class="hotspot home-hotspot" id="homeHotspot" aria-label="Kembali ke halaman pembuka" hidden></button>
-  <button class="hotspot music-hotspot" id="music" aria-label="Nyalakan atau matikan musik" aria-pressed="false"></button>
+  <button class="hotspot music-hotspot is-off" id="music" aria-label="Nyalakan atau matikan musik" aria-pressed="false"></button>
   <button class="hotspot voice-hotspot" id="voice" aria-label="Nyalakan atau matikan suara"> </button>
   <button class="hotspot begin-hotspot" id="begin" aria-label="Mulai bermain"></button>
   <button class="hotspot repeat-hotspot" id="repeat" aria-label="Ulangi suara pertanyaan" hidden></button>
@@ -106,7 +147,7 @@ body.playing .intro-screen{display:none}
 <div class="brand game-brand"><img src="assets/logo-ruang-digital-umaira.png" alt="Ruang Digital Umaira"><span>GAME EDUKASI ANAK</span></div>
 <h1 class="game-heading">🍋 Aku Kenal Rasa!</h1>
 <p class="sub game-sub">Game kecil untuk mengenal rasa dan benda di sekitar kita. Dengarkan, pikirkan, lalu pilih jawaban.</p>
-<div class="toolbar game-toolbar"><button class="small" id="homeLabel" aria-label="Kembali ke halaman pembuka" title="Halaman pembuka">🏠 Beranda</button><button class="small" id="voiceLabel" aria-label="Matikan suara" title="Aktif/nonaktif suara">🔊 Suara: aktif</button><button class="small" id="musicLabel" aria-label="Nyalakan musik" title="Aktif/nonaktif musik">🎵 Musik: mati</button><button class="small" id="repeatLabel" aria-label="Ulangi suara pertanyaan" title="Ulangi suara">🔁 Ulangi suara</button></div>
+<div class="toolbar game-toolbar"><button class="small" id="homeLabel" aria-label="Kembali ke halaman pembuka" title="Halaman pembuka">🏠 Beranda</button><button class="small" id="voiceLabel" aria-label="Matikan suara" title="Aktif/nonaktif suara">🔊 Suara: aktif</button><button class="small is-off" id="musicLabel" aria-label="Nyalakan musik" title="Aktif/nonaktif musik">🎵 Musik: mati</button><button class="small" id="repeatLabel" aria-label="Ulangi suara pertanyaan" title="Ulangi suara">🔁 Ulangi suara</button></div>
 <audio id="bgMusic" src="assets/aku-kenal-rasa-musik-original.wav" loop preload="none"></audio>
 <section id="game" hidden><div class="row"><span id="count"></span><span id="score"></span></div><div class="track"><div class="fill" id="fill"></div></div><div class="panel"><div class="question-content"><div class="emoji" id="emoji"></div><div class="prompt" id="prompt"></div><p>Pilih jawaban yang menurutmu benar, ya!</p><div class="answers" id="answers"></div><div class="feedback" id="feedback" aria-live="polite"></div><button class="main" id="next" disabled>Berikutnya ➜</button></div></div></section>
 <section id="end" class="end" hidden><div class="emoji">🌟🎉🌈</div><h2>Hebat! Kamu sudah selesai bermain!</h2><p id="final"></p><div class="bubble" id="encourage">Terus belajar dengan gembira!</div><br><button class="main" id="again">Main Lagi 🔄</button></section>
@@ -138,14 +179,24 @@ function choose(n){if(done)return;done=true;let q=qs[i],bs=[...el("answers").que
 function start(){i=0;pts=0;document.body.classList.add("playing");el("start").hidden=false;el("end").hidden=true;el("game").hidden=false;render()}
 function goHome(){if(window.speechSynthesis)window.speechSynthesis.cancel();el("game").hidden=true;el("end").hidden=true;el("start").hidden=false;document.body.classList.remove("playing");}
 el("begin").onclick=start;el("again").onclick=start;el("homeLabel").onclick=goHome;el("next").onclick=()=>{if(!done)return;if(i<qs.length-1){i++;render()}else{el("game").hidden=true;el("end").hidden=false;el("final").textContent=`Kamu mendapat ${pts} dari ${qs.length} jawaban benar.`;el("encourage").textContent=pts===qs.length?"Luar biasa! Semua jawaban benar!":"Bagus sekali sudah mencoba. Kita bisa bermain lagi untuk belajar lebih banyak.";say("Permainan selesai. Kamu mendapat "+pts+" dari "+qs.length+". "+el("encourage").textContent)}};
-function toggleVoice(){voiceOn=!voiceOn;el("voice").setAttribute("aria-label",voiceOn?"Matikan suara":"Nyalakan suara");el("voiceLabel").textContent=voiceOn?"🔊 Suara: aktif":"🔇 Suara: mati";el("voiceLabel").setAttribute("aria-label",voiceOn?"Matikan suara":"Nyalakan suara");if(!voiceOn&&window.speechSynthesis)speechSynthesis.cancel();else say(last||"Halo, ayo bermain!")}
+function syncSoundIcons(){
+  el("voice").classList.toggle("is-off",!voiceOn);
+  el("voiceLabel").classList.toggle("is-off",!voiceOn);
+  const musicOff=music.paused;
+  el("music").classList.toggle("is-off",musicOff);
+  el("musicLabel").classList.toggle("is-off",musicOff);
+}
+function toggleVoice(){voiceOn=!voiceOn;syncSoundIcons();el("voice").setAttribute("aria-label",voiceOn?"Matikan suara":"Nyalakan suara");el("voiceLabel").textContent=voiceOn?"🔊 Suara: aktif":"🔇 Suara: mati";el("voiceLabel").setAttribute("aria-label",voiceOn?"Matikan suara":"Nyalakan suara");if(!voiceOn&&window.speechSynthesis){speechSynthesis.cancel()}else{const onHome=!el("start").hidden&&!document.body.classList.contains("playing");say(onHome?"Halo, ayo bermain!":(last||"Halo, ayo bermain!"))}}
 el("voice").onclick=toggleVoice;el("voiceLabel").onclick=toggleVoice;
 function repeatVoice(){say(last||"Tekan Mulai Bermain untuk memulai.")}
 el("repeat").onclick=repeatVoice;el("repeatLabel").onclick=repeatVoice;
 const music=el("bgMusic");
 music.volume=0.22;
-async function toggleMusic(){if(music.paused){try{await music.play();el("musicLabel").textContent="🎵 Musik: aktif";el("musicLabel").setAttribute("aria-label","Matikan musik");el("music").setAttribute("aria-pressed","true")}catch(e){el("musicLabel").textContent="🎵 Coba putar lagi";alert("Musik belum bisa diputar. Pastikan file musik ada di folder assets dan namanya sama persis.")}}else{music.pause();el("musicLabel").textContent="🎵 Musik: mati";el("musicLabel").setAttribute("aria-label","Nyalakan musik");el("music").setAttribute("aria-pressed","false")}}
+async function toggleMusic(){if(music.paused){try{await music.play();syncSoundIcons();el("musicLabel").textContent="🎵 Musik: aktif";el("musicLabel").setAttribute("aria-label","Matikan musik");el("music").setAttribute("aria-pressed","true")}catch(e){el("musicLabel").textContent="🎵 Coba putar lagi";alert("Musik belum bisa diputar. Pastikan file musik ada di folder assets dan namanya sama persis.")} }else{music.pause();syncSoundIcons();el("musicLabel").textContent="🎵 Musik: mati";el("musicLabel").setAttribute("aria-label","Nyalakan musik");el("music").setAttribute("aria-pressed","false")}}
 el("music").onclick=toggleMusic;el("musicLabel").onclick=toggleMusic;
+music.addEventListener("play",syncSoundIcons);
+music.addEventListener("pause",syncSoundIcons);
+syncSoundIcons();
 if(!("speechSynthesis"in window)){el("voice").setAttribute("aria-label","Suara tidak didukung");el("voiceLabel").textContent="🔈 Suara tidak didukung";el("voice").disabled=true;el("repeat").disabled=true}
 </script>
 </body>
